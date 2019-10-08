@@ -1,11 +1,9 @@
 /*
  * Implements navswitch and stores the player's input sequence.
- * Host input is received through IR transmission (temp.?).
  * Uses tinygl to display the player's input (temp.?).
  * Currently contains code copies from existing lab files.
  *
- * No implementation of being able to distribute the player sequence
- * elsewhere other than here.
+ * Does not have a way to set PLAYER_TURN to 1 - needs input from host.
  *
  * Authors: Raymond Tamse, Ryan Beaumont
  * Date: October 9 2019
@@ -114,6 +112,8 @@ int main(void)
 
         navswitch_update ();
 
+        // add code here to change PLAYER_TURN
+
 
         if (PLAYER_TURN) {
 
@@ -122,13 +122,10 @@ int main(void)
             // must be tested from a different file that determines
             // number of sequences from host
 
-
             // Copies the player sequence into a local array of type char*.
             strncpy(local_sequence, seq_pointer, SEQ_MAX * (sizeof char));
-            /*
-            if player's turn is over
+
             PLAYER_TURN = 0;
-            */
         }
 
     }
