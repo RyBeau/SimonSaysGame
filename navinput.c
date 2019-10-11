@@ -1,6 +1,5 @@
 /*
  * Implements navswitch and stores the player's input sequence.
- * Uses tinygl to display the player's input (temp.?).
  * Currently contains code copies from existing lab files.
  *
  * Does not have a way to set PLAYER_TURN to 1 - needs input from host.
@@ -24,19 +23,6 @@
 #define SEQ_MAX 20
 #define PLAYER_TURN 0
 
-/*
- * Takes a char type variable and displays one of the four arrows
- * or the dot corresponding to the specific character given.
- * Result is displayed on the LED matrix using tinygl.
- */
-void display_character (char character)
-{
-    char buffer[2];
-
-    buffer[0] = character;
-    buffer[1] = '\0';
-    tinygl_text (buffer);
-}
 
 /*
  * Returns either !, ", #, $, or %, which all correspond to
