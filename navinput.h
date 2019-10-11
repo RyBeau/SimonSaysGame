@@ -17,12 +17,12 @@
 char player_input ();
 
 /* Takes an integer 'seq_num' to record the required amount of characters.
- * Uses a char* to record a sequence of characters using the navswitch.
+ * Uses a char to record a sequence of characters using the navswitch.
  * Calls 'player_input()' for the characters.
  * Returns the head of the sequence when it finishes looping
  * for 'seq_num' times. Uses a for loop.
  */
-char* player_sequence (int seq_num);
+char player_sequence (int seq_num);
 
  #endif
 
