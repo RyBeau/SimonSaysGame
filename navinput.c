@@ -14,7 +14,7 @@
 #include "pacer.h"
 #include "navswitch.h"
 #include "tinygl.h"
-#include "../fonts/font5x7_2_arrows.h"
+#include "font5x7_1_arrows_r.h"
 
 
 // might get marked for plagiarism?
@@ -49,23 +49,23 @@ char player_input ()
     // Arrows; clockwise starting from North
     while (input_char == '') {
         if (navswitch_push_event_p (NAVSWITCH_NORTH)) {
-            input_char = '!';
+            input_char = '^ ';
         }
 
         if (navswitch_push_event_p (NAVSWITCH_EAST)) {
-            input_char = '"';
+            input_char = '> ';
         }
 
         if (navswitch_push_event_p (NAVSWITCH_SOUTH)) {
-            input_char = '#';
+            input_char = '. ';
         }
 
         if (navswitch_push_event_p (NAVSWITCH_WEST)) {
-            input_char = '$';
+            input_char = '< ';
         }
 
         if (navswitch_push_event_p (NAVSWITCH_PUSH)) {
-            input_char = '%';    // dot
+            input_char = '* ';    // dot
         }
     }
     return input_char;
@@ -98,7 +98,7 @@ int main(void)
     system_init ();
 
     tinygl_init (PACER_RATE);
-    tinygl_font_set (&font5x7_2_arrows);
+    tinygl_font_set (&font5x7_1_arrows_r);
     tinygl_text_speed_set (MESSAGE_RATE);
 
     navswitch_init ();
