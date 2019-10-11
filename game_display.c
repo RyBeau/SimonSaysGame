@@ -1,8 +1,8 @@
 /**
- * @file display.c
+ * @file game_display.c
  * @author Ryan Beaumont
  * @date 9/10/2019
- * @brief
+ * @brief Display on LED Matrix
  * @note This module contains functions for display game info on screen
  * */
 #include "system.h"
@@ -82,18 +82,11 @@ void display_sequence(char* sequence, int n)
     displayUpdateLoop(n);
 }
 
-int main (void)
+
+void display_init (void)
 {
     system_init ();
-    timer_init();
     tinygl_init (PACER_RATE);
     tinygl_font_set (&font5x7_1_arrows);
     tinygl_text_speed_set(MESSAGE_RATE);
-
-    pacer_init (PACER_RATE);
-    char sequence[14] = "^ ^ ^ ^ ";
-    display_sequence(sequence, 8);
-    display_text("You Win! ", 9);
-    display_sequence(sequence, 8);
-    return 0;
 }

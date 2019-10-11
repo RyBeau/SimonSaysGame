@@ -1,6 +1,6 @@
 
-#ifndef DISPLAY_H
-#define DISPLAY_H
+#ifndef GAME_DISPLAY_H
+#define GAME_DISPLAY_H
 
 #include "system.h"
 
@@ -25,4 +25,5 @@ void display_text(char* text, int n);
  * @param n The number of characters in the sequence*/
 void display_sequence(char* sequence, int n);
 
+display_init();
 #endif
