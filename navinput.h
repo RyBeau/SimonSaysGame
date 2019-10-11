@@ -10,13 +10,6 @@
  #define NAVSWITCH_H
 
 /*
- * Takes a char type variable and displays one of the four arrows
- * or the dot corresponding to the specific character given.
- * Result is displayed on the LED matrix using tinygl.
- */
-void display_character (char character);
-
-/*
  * Returns either !, ", #, $, or %, which all correspond to
  * one of the four arrows and the dot, depending on the player's input
  * from the navswitch. Uses a while loop.
