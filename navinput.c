@@ -1,24 +1,38 @@
 /*
  * Implements navswitch and stores the player's input sequence.
  * Currently contains code copies from existing lab files.
+ * Makes use of game_display to display the player's input sequence.
  *
  * Authors: Raymond Tamse
- * Date: October 9 2019
+ * Date: October 13 2019
  */
 
 #include <stdio.h>
 #include <string.h>
 #include "system.h"
 #include "navswitch.h"
+#include "game_display.h"
 
 
 #define SEQ_MAX 20
 
+/* Returns '*' if a player wants to be the host
+ * before the game starts.
+ */
+char host_input(void)
+{
+    char input_char = 'A';
+    if (navswitch_push_event_p (NAVSWITCH_PUSH)) {
+        input_char = '*';
+    }
+    return input_char;
+}
 
 /*
  * Returns either !, ", #, $, or %, which all correspond to
  * one of the four arrows and the dot, depending on the player's input
- * from the navswitch. Uses a while loop.
+ * from the navswitch.
+ * Displays the character's input on the LED matrix using game_display.
  */
 char player_input(void)
 {
@@ -45,6 +59,7 @@ char player_input(void)
             input_char = '*';    // dot
         }
     }
+    display_text(&input_char, 2);
     navswitch_update();
     return input_char;
 }
@@ -70,14 +85,6 @@ int main(void)
 {
     system_init ();
     navswitch_init ();
-
-    while(1)
-    {
-        navswitch_update ();
-        char seq_pointer = player_sequence(5);
-    }
-
-    // Include test code here for seq_pointer?
 
     return 0;
 
