@@ -1,13 +1,17 @@
 /*
  * Declares the functions of navinput.c
- * Currently lacks function comments.
  *
- * Authors: Raymond Tamse, Ryan Beaumont
- * Date: October 9 2019
+ * Authors: Raymond Tamse
+ * Date: October 13 2019
  */
 
  #ifndef NAVSWITCH_H
  #define NAVSWITCH_H
+
+/* Returns '*' if a player wants to be the host
+ * before the game starts.
+ */
+char host_input ();
 
 /*
  * Returns either !, ", #, $, or %, which all correspond to
