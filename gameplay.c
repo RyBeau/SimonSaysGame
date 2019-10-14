@@ -17,7 +17,7 @@
 
 
 #define PACER_RATE 500
-#define SEQ_TYPE_NUM 5
+#define SEQ_TYPE_NUM 5              // number of symbols
 #define SEQ_START_SIZE 5
 
 /*
@@ -25,6 +25,7 @@
  * call the function 'generate_sequence' to generate a random sequence.
  * Displays a countdown prompt on the LED matrix before the game begins.
  */
+ /**
 void begin_game(int is_host)
 {
     pacer_init(PACER_RATE);
@@ -64,7 +65,7 @@ void begin_game(int is_host)
         }
     }
 }
-
+*/
 
 /*
  * Handles the sequence communication between player and host.
@@ -74,6 +75,7 @@ void begin_game(int is_host)
  *
  * Current concern over the program working with 2 while loops?
  */
+ /**
 void sequence_comms(char* host_seq, char* player_seq)
 {
     if (is_host && host_seq == NULL) {
@@ -84,19 +86,19 @@ void sequence_comms(char* host_seq, char* player_seq)
         player_seq = player_sequence(seq_size);
     }
 }
+*/
 
 /*
  * Generates a random sequence of chars
  * corresponding to all five navswitch inputs.
- * Returns a char* to the main game loop.
  */
-char* generate_sequence(int seq_length)
+void generate_sequence(char* sequence, int seq_length)
 {
-    char* sequence = NULL;
     char* seq_symbols = "^>.<*";
-    int random_num = rand() % SEQ_TYPE_NUM;
-    for (int i = 0; i < seq_length; i++) {
-        *(sequence + i) = *(seq_symbols + random_num) + " ";
+    int random_num = 0;
+    for (int i = 0; i < seq_length; i+=2) {
+        random_num = rand() % SEQ_TYPE_NUM;         // Generate randnum
+        sequence[i] = seq_symbols[random_num];
+        sequence[i + 1] = ' ';
     }
-    return sequence;
 }
