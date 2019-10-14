@@ -13,8 +13,9 @@
  * call the function 'generate_sequence' to generate a random sequence.
  * Displays a countdown prompt on the LED matrix before the game begins.
  */
+ /**
 void begin_game(int is_host);
-
+*/
 
 /*
  * Handles the sequence communication between player and host.
@@ -24,14 +25,14 @@ void begin_game(int is_host);
  *
  * Current concern over the program working with 2 while loops?
  */
+ /**
 void sequence_comms(char* host_seq, char* player_seq);
-
+*/
 
 /*
  * Generates a random sequence of chars
  * corresponding to all five navswitch inputs.
- * Returns a char* to the main game loop.
  */
-char* generate_sequence(int seq_length);
+void generate_sequence(char* sequence, int seq_length);
 
 #endif
