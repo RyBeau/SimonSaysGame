@@ -16,7 +16,13 @@ all: game.out
 
 
 # Compile: create object files from C source files.
-game.o: game.c ../../drivers/avr/system.h ../../drivers/navswitch.h game_display.h transmit.h ../../utils/pacer.h
+game.o: game.c ../../drivers/avr/system.h ../../drivers/navswitch.h game_display.h transmit.h gameplay.h ../../utils/pacer.h
+	$(CC) -c $(CFLAGS) $< -o $@
+
+gameplay.o: gameplay.c ../../drivers/avr/system.h ../../utils/pacer.h
+	$(CC) -c $(CFLAGS) $< -o $@
+
+navinput.o: navinput.c ../../drivers/avr/system.h ../../drivers/navswitch.h game_display.h ../../utils/pacer.h
 	$(CC) -c $(CFLAGS) $< -o $@
 
 system.o: ../../drivers/avr/system.c ../../drivers/avr/system.h
@@ -65,7 +71,7 @@ prescale.o: ../../drivers/avr/prescale.c ../../drivers/avr/prescale.h ../../driv
 	$(CC) -c $(CFLAGS) $< -o $@
 
 # Link: create ELF output file from object files.
-game.out: game.o system.o game_display.o transmit.o ir_uart.o font.o pacer.o tinygl.o timer.o pio.o ledmat.o display.o navswitch.o timer0.o usart1.o prescale.o
+game.out: game.o system.o game_display.o transmit.o ir_uart.o font.o pacer.o tinygl.o timer.o pio.o ledmat.o display.o navswitch.o timer0.o usart1.o prescale.o navinput.o gameplay.o
 	$(CC) $(CFLAGS) $^ -o $@ -lm
 	$(SIZE) $@
 
