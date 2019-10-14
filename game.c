@@ -25,7 +25,8 @@ int main (void)
         }
         if (navswitch_push_event_p(NAVSWITCH_SOUTH)) {
 			display_text("Receiving ", 10);
-            char test[10] = receiveSequence(10);
+            char test[10];
+            receiveSequence(test);
             display_sequence(test, 10);
         }
         pacer_wait();
