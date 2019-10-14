@@ -25,5 +25,6 @@ void display_text(char* text, int n);
  * @param n The number of characters in the sequence*/
 void display_sequence(char* sequence, int n);
 
-display_init();
+
+void gameDisplay_init(void);
 #endif
