@@ -20,7 +20,7 @@ int main (void)
 		navswitch_update();
         if (navswitch_push_event_p(NAVSWITCH_NORTH)) {
 			display_text("Sending ", 8);
-            transmitSequence(sequence);
+            transmitSequence(sequence, 10);
         }
         if (navswitch_push_event_p(NAVSWITCH_SOUTH)) {
 			display_text("Receiving ", 10);
