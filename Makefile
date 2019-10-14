@@ -22,7 +22,7 @@ game.o: game.c ../../drivers/avr/system.h ../../drivers/navswitch.h game_display
 system.o: ../../drivers/avr/system.c ../../drivers/avr/system.h
 	$(CC) -c $(CFLAGS) $< -o $@
 
-game_display.o: game_display.c ../../drivers/avr/system.h ../../utils/font.h font5x7_1_arrows_r.h ../../utils/pacer.h ../../utils/tinygl.h
+game_display.o: game_display.c ../../drivers/avr/system.h ../../utils/font.h font5x7_1_arrows.h ../../utils/pacer.h ../../utils/tinygl.h
 	$(CC) -c $(CFLAGS) $< -o $@
 
 transmit.o: transmit.c ../../drivers/avr/ir_uart.h ../../drivers/avr/system.h
