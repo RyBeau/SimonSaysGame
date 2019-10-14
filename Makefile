@@ -55,8 +55,17 @@ pio.o: ../../drivers/avr/pio.c ../../drivers/avr/pio.h ../../drivers/avr/system.
 navswitch.o: ../../drivers/navswitch.c ../../drivers/avr/delay.h ../../drivers/avr/pio.h ../../drivers/avr/system.h ../../drivers/navswitch.h
 	$(CC) -c $(CFLAGS) $< -o $@
 
+timer0.o: ../../drivers/avr/timer0.c ../../drivers/avr/bits.h ../../drivers/avr/prescale.h ../../drivers/avr/system.h ../../drivers/avr/timer0.h
+	$(CC) -c $(CFLAGS) $< -o $@
+
+usart1.o: ../../drivers/avr/usart1.c ../../drivers/avr/system.h ../../drivers/avr/usart1.h
+	$(CC) -c $(CFLAGS) $< -o $@
+
+prescale.o: ../../drivers/avr/prescale.c ../../drivers/avr/prescale.h ../../drivers/avr/system.h
+	$(CC) -c $(CFLAGS) $< -o $@
+
 # Link: create ELF output file from object files.
-game.out: game.o system.o game_display.o transmit.o ir_uart.o font.o pacer.o tinygl.o timer.o pio.o ledmat.o display.o navswitch.o
+game.out: game.o system.o game_display.o transmit.o ir_uart.o font.o pacer.o tinygl.o timer.o pio.o ledmat.o display.o navswitch.o timer0.o usart1.o prescale.o
 	$(CC) $(CFLAGS) $^ -o $@ -lm
 	$(SIZE) $@
 
