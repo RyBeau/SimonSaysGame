@@ -11,7 +11,7 @@
  * This transmits the sequece given in char* sequence.
  * @param char* sequence, data to be sent to the other board
  * */
-void transmitSequence(char* sequence)
+void transmitSequence(char* sequence, int n)
 {
     ir_uart_puts(sequence);
 }
