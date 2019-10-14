@@ -13,7 +13,9 @@
  * */
 void transmitSequence(char* sequence, int n)
 {
-    ir_uart_puts(sequence);
+    for (int i = 0; i < n; i++){
+		ir_uart_putc(sequence[i]);
+	}
 }
 
 /**
