@@ -7,20 +7,34 @@
 #include "system.h"
 #include "ir_uart.h"
 
+/**
+ * This transmits the sequece given in char* sequence.
+ * @param char* sequence, data to be sent to the other board
+ * */
 void transmitSequence(char* sequence)
 {
     ir_uart_puts(sequence);
 }
 
-char* receiveSequence(int n)
+/**
+ * Receives the data sent by transmitSequence and puts it in the
+ * given char* received.
+ * @param char* received, char* for the received data to go into
+ * */
+void receiveSequence(char* received)
 {
-    char* received[n];
-    for(int i = 0; i < n; i++) {
-        received[i] = ir_uart_getc();
+    int counter = 0;
+    while (ir_uart_read_ready_p()) {
+        received = ir_uart_getc();
+        ++counter;
     }
-    return received;
 }
 
-void transmit_init(){
+/**
+ * Intialises other modules or variables needed for the
+ * transmit module.
+ **/
+void transmit_init(void)
+{
     ir_uart_init();
 }
