@@ -32,7 +32,7 @@ void receiveSequence(char* received, int n)
     int counter = 0;
     while (counter < n) {
         if (ir_uart_read_ready_p()) {
-            received = ir_uart_getc();
+            received[counter] = ir_uart_getc();
             ++counter;
         }
     }
