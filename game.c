@@ -4,17 +4,28 @@
 #include "pacer.h"
 #include "navswitch.h"
 
+
 #define PACER_RATE 500
 
 int main (void)
 {
+	system_init();
+	navswitch_init();
     pacer_init(PACER_RATE);
+    gameDisplay_init();
+    
     char sequence[10] = "< > ^ . * ";
+    display_text("Testing ", 8);
     while (1) {
+		navswitch_update();
         if (navswitch_push_event_p(NAVSWITCH_NORTH)) {
+			display_text("Sending ", 8);
             transmitSequence(sequence);
-        } else {
-            char* test = receiveSequence(10);
+        }
+        if (navswitch_push_event_p(NAVSWITCH_SOUTH)) {
+			display_text("Receiving ", 10);
+            char test[10];
+            receiveSequence(test);
             display_sequence(test, 10);
         }
         pacer_wait();
