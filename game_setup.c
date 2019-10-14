@@ -3,7 +3,6 @@
  * Also sets messages using game_display.c depending on the current
  * state of the game.
  *
- * Currently does not continue after host and player has been found.
  * NOT TESTED.
  *
  * Author: Raymond Tamse Jr
@@ -14,6 +13,7 @@
 #include "system.h"
 #include "navinput.h"
 #include "game_display.h"
+
 
 
 /* Simply prints "Simon Says" on the LED matrix.
@@ -30,13 +30,13 @@ void title_msg()
  * If person receives '*', trasmit '!' - person is player.
  * If person receives '!', start game - person is host.
  * Uses transmit.c for IR communication.
+ * Returns an int that tells if the player is a host.
  */
-void set_player()
+int set_player()
 {
     transmit_init();
 
     int is_host = 0;
-    int is_player = 0;
 
     char* player_found = NULL;
 
@@ -60,15 +60,13 @@ void set_player()
     }
 
     // does the transmit line need to be in a while loop?
-    if (player_found == "*") {
-        is_player = 1;
+    if (*player_found == "*") {
         char* inform_host = "!";
         transmitSequence(inform_host);
     }
 
-    // Under Construction
+    return is_host;          // at this point program calls begin_game
 }
-
 
 /*
  * Takes an integer 'win' to choose between 3 different messages
