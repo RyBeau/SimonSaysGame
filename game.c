@@ -15,7 +15,7 @@ int main (void)
     gameDisplay_init();
     transmit_init();
     
-    char sequence[10] = "< > ^ . * ";
+    char sequence[10] = "< > ^ . *A";
     display_text("Testing ", 8);
     while (1) {
 		navswitch_update();
@@ -26,7 +26,7 @@ int main (void)
         if (navswitch_push_event_p(NAVSWITCH_SOUTH)) {
 			display_text("Receiving ", 10);
             char test[10];
-            receiveSequence(test);
+            receiveSequence(test, 10);
             display_sequence(test, 10);
         }
         pacer_wait();

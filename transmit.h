@@ -15,7 +15,7 @@ void transmitSequence(char* sequence, int n);
  * given char* received.
  * @param char* received, char* for the received data to go into
  * */
-void receiveSequence(char* received);
+void receiveSequence(char* received, int n);
 
 /**
  * Intialises other modules or variables needed for the 

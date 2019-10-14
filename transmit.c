@@ -13,9 +13,13 @@
  * */
 void transmitSequence(char* sequence, int n)
 {
-    for (int i = 0; i < n; i++){
-		ir_uart_putc(sequence[i]);
-	}
+    int counter = 0;
+    while (counter < n) {
+        if (ir_uart_write_ready_p ()) {
+            ir_uart_putc(sequence[counter]);
+            counter += 1;
+        }
+    }
 }
 
 /**
@@ -23,12 +27,14 @@ void transmitSequence(char* sequence, int n)
  * given char* received.
  * @param char* received, char* for the received data to go into
  * */
-void receiveSequence(char* received)
+void receiveSequence(char* received, int n)
 {
     int counter = 0;
-    while (ir_uart_read_ready_p()) {
-        received = ir_uart_getc();
-        ++counter;
+    while (counter < n) {
+        if (ir_uart_read_ready_p()) {
+            received = ir_uart_getc();
+            ++counter;
+        }
     }
 }
 
