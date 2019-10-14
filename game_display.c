@@ -19,7 +19,7 @@
 /**
  * Clears and updates the LED matrix
  * */
-void matrixClear(void)
+static void matrixClear(void)
 {
     tinygl_clear();
     tinygl_update();
@@ -30,7 +30,7 @@ void matrixClear(void)
  * to allow for different loop pacing.
  * @param wantedHz the desired rate for the loop to run at.
  * @return Number of loops to get the wantedHz*/
-int makeSameHz(int wantedHz)
+static int makeSameHz(int wantedHz)
 {
     return PACER_RATE / wantedHz;
 }
@@ -39,7 +39,7 @@ int makeSameHz(int wantedHz)
  * It will loop for as long as need to display n letters on the matrix.
  * Then clear the matrix after.
  * @param n The number of letters in the sequence to display*/
-void displayUpdateLoop(int n)
+static void displayUpdateLoop(int n)
 {
     int loopFor = n * makeSameHz(PLAYBACK_RATE);
     int counter = 0;
@@ -82,8 +82,11 @@ void display_sequence(char* sequence, int n)
     displayUpdateLoop(n);
 }
 
-
-void display_init (void)
+/**
+ * Intialises other modules or variables needed for the
+ * game_display module.
+ **/
+void gameDisplay_init (void)
 {
     system_init ();
     tinygl_init (PACER_RATE);
