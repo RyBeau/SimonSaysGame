@@ -14,7 +14,7 @@
 void transmitSequence(char* sequence, int n)
 {
     int counter = 0;
-    while (counter < n) {
+    while (counter < n || !ir_uart_write_finished_p ()) {
         if (ir_uart_write_ready_p ()) {
             ir_uart_putc(sequence[counter]);
             counter += 1;
@@ -33,7 +33,7 @@ void receiveSequence(char* received, int n)
     while (counter < n) {
         if (ir_uart_read_ready_p()) {
             received[counter] = ir_uart_getc();
-            ++counter;
+            counter += 1;
         }
     }
 }
