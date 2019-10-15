@@ -1,12 +1,10 @@
 /*
- * Sets up the game by determining who the host and the player is.
+ * Handles the game matchmaking.
  * Also sets messages using game_display.c depending on the current
  * state of the game.
  *
- * NOT TESTED.
- *
- * Author: Raymond Tamse Jr
- * Date: October 13 2019
+ * Author: Raymond Tamse Jr, Ryan Beaumont
+ * Date: October 15 2019
  */
 
 
@@ -24,26 +22,27 @@
  */
 void title_msg()
 {
-    display_text("Simon Says ", 11);
+    char* greeting = " SIMON SAYS ";
+    display_text(greeting, strlen(greeting));
 }
 
 
-/*
- * Expects to receive '*' or '!' through IR to determine
- * who the host and the player is.
- * If person receives '*', trasmit '!' - person is player.
- * If person receives '!', start game - person is host.
- * Uses transmit.c for IR communication.
- * Returns an int that tells if the player is a host.
+/**
+ * Handles the matchmaking between two boards.
+ * Takes an int* to determine who will start first (host).
+ * Proceeds to send and receive a signal (!) when player is found.
+ *
+ * @param int* is_host, int to be updated to determine host
  */
 void set_player(int* is_host)
 {
     int player_found = 0;
     char data[1];
-    /* While '*' or '!' not received... */
+    char* instruction = " PUSH NAVSWITCH TO HOST ";
     while(player_found == 0) {
-		//Put call here
-		navswitch_update();
+        display_text(instruction, strlen(instruction));
+        navswitch_update();
+
         // Transmit
         if (navswitch_push_event_p (NAVSWITCH_PUSH)) {
             transmitSequence("!", 1);
@@ -51,7 +50,7 @@ void set_player(int* is_host)
             player_found = 1;
         }
         // Receive
-        if (ir_uart_read_ready_p ()) { 
+        if (ir_uart_read_ready_p ()) {
             receiveSequence(data, 1);    // receive '!'
             if (strncmp(data, "!", 1) == 0) {
                 player_found = 1;
