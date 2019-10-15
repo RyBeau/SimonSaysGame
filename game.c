@@ -10,6 +10,7 @@
 
 
 #define PACER_RATE 500
+#define SEQ_SIZE 10
 
 
 /**
@@ -38,29 +39,39 @@ int main (void)
     gameDisplay_init();
     transmit_init();
 
-    char sequence[10];
-    char received[10];
+    char sequence[SEQ_SIZE];
+    char received[SEQ_SIZE];
     int is_turn = 0;
+    int turns = 0;              // keeps track of turn switches
+    int seq_add = 0;
     while (1) {
         title_msg();
         set_player(&is_turn);
 
         if (is_turn) {
             display_text("Your Turn ", 10);
-            player_input(sequence, 10);
-            transmitSequence(sequence, 10);
+            player_input(sequence, SEQ_SIZE + seq_add);
+            transmitSequence(sequence, SEQ_SIZE + seq_add);
             is_turn = 0;
+            ++turns;
         } else {
-            receiveSequence(received, 10);
-            display_sequence(received, 10);
-            player_input(sequence, 10);
-            if (checkSequence(received, sequence, 10)) {
+            receiveSequence(received, SEQ_SIZE + seq_add);
+            display_sequence(received, SEQ_SIZE + seq_add);
+            player_input(sequence, SEQ_SIZE + seq_add);
+            if (checkSequence(received, sequence, SEQ_SIZE + seq_add)) {
                 display_text("Matches ", 8);
                 is_turn = 1;
+                ++turns;
             } else {
                 display_text("Wrong ", 6);
+                --turns;
             }
         }
+
+        if (turns % 2 == 0) { // if player has transmitted and received
+            seq_add += 2;
+        }
+
         pacer_wait();
     }
 }
