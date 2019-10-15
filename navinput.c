@@ -7,23 +7,8 @@
 
 #include "system.h"
 #include "navswitch.h"
-#include "game_display.h"
 #include "pacer.h"
 
-
-#define SEQ_MAX 20
-
-/* Returns '*' if a player wants to be the host
- * before the game starts.
- */
-char host_input(void)
-{
-    char input_char = 'A';
-    if (navswitch_push_event_p (NAVSWITCH_PUSH)) {
-        input_char = '*';
-    }
-    return input_char;
-}
 
 /*
  * Takes a char* input that gets updated depending on the player's
@@ -66,8 +51,6 @@ void player_input(char* input, int n)
         }
         pacer_wait();
     }
-    display_sequence(input, n); //dont want
-
 }
 
 
