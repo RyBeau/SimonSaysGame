@@ -1,8 +1,8 @@
 /*
  * Implements navswitch and processes the player's input sequence.
  *
- * @author Raymond Tamse
- * Date: October 14 2019
+ * @author Raymond Tamse, Ryan Beaumont
+ * Date: October 15 2019
  */
 
 #include "system.h"
@@ -10,16 +10,17 @@
 #include "pacer.h"
 
 
-/*
+/**
  * Takes a char* input that gets updated depending on the player's
  * input. Loops n times, where n/2 is the num. of symbols - the
  * other half is for spaces.
+ * @param char* input, player sequence to be updated with input
  */
 void player_input(char* input, int n)
 {
     int counter = 0;
     while (counter < n) {
-		navswitch_update();
+        navswitch_update();
         if (navswitch_push_event_p (NAVSWITCH_NORTH)) {
             input[counter] = '^';
             input[counter + 1] = ' ';
