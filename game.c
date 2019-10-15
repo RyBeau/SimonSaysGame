@@ -33,10 +33,12 @@ int main (void)
     char received[10];
     while (1) {
         if (navswitch_push_event_p(NAVSWITCH_NORTH)) {
+			display_text("S ", 2);
             player_input(sequence, 10);
             transmitSequence(sequence, 10);
         }
         if (navswitch_push_event_p(NAVSWITCH_SOUTH)) {
+			display_text("R ", 2);
             receiveSequence(received, 10);
             display_sequence(received, 10);
             player_input(sequence, 10);
