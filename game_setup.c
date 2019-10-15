@@ -53,6 +53,7 @@ void set_player(int* is_host)
         if (ir_uart_read_ready_p ()) {
             receiveSequence(data, 1);    // receive '!'
             if (strncmp(data, "!", 1) == 0) {
+				*is_host = 0;
                 player_found = 1;
             }
         }
