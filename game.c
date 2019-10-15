@@ -11,7 +11,16 @@
 
 #define PACER_RATE 500
 
-/**
+int checkSequence(char* received, char* input, int n)
+{
+    if (strncmp(received, input, n) == 0) {
+        return(1);
+    } else {
+        return(0);
+    }
+}
+
+
 int main (void)
 {
     system_init();
@@ -20,24 +29,28 @@ int main (void)
     gameDisplay_init();
     transmit_init();
 
-    char sequence[10] = "< > ^ . *A";
-    display_text("Testing ", 8);
+    char sequence[10];
+    char received[10];
     while (1) {
-        navswitch_update();
         if (navswitch_push_event_p(NAVSWITCH_NORTH)) {
-            display_text("Sending ", 8);
+            player_input(sequence, 10);
             transmitSequence(sequence, 10);
         }
         if (navswitch_push_event_p(NAVSWITCH_SOUTH)) {
-            display_text("Receiving ", 10);
-            char test[10] = "          ";
-            receiveSequence(test, 1);
-            display_sequence(test, 10);
+            receiveSequence(received, 10);
+            displaySequence(received, 10);
+            player_input(sequence, 10);
+            if (checkSequence(received, sequence, 10)) {
+				display_text("Matches ", 8);
+            } else {
+				display_text("Wrong ", 6);
+			}
+            
         }
+        navswitch_update();
         pacer_wait();
     }
 }
-* */
 
 /**        PATTERN MATCHING TEST - SUCCESS
 int main (void)
