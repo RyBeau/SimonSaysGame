@@ -19,7 +19,7 @@ all: game.out
 game.o: game.c ../../drivers/avr/system.h ../../drivers/navswitch.h game_display.h transmit.h gameplay.h ../../utils/pacer.h
 	$(CC) -c $(CFLAGS) $< -o $@
 
-gameplay.o: gameplay.c ../../drivers/avr/system.h ../../utils/pacer.h game_display.h
+gameplay.o: gameplay.c ../../drivers/avr/system.h ../../utils/pacer.h
 	$(CC) -c $(CFLAGS) $< -o $@
 
 navinput.o: navinput.c ../../drivers/avr/system.h ../../drivers/navswitch.h game_display.h ../../utils/pacer.h
