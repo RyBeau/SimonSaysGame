@@ -31,23 +31,26 @@ int checkSequence(char* received, char* input, int n)
     }
 }
 
-int main (void)
+void receiving_check(char* received, char* sequence, int* game_playing, int* is_turn,int seq_add)
 {
-    system_init();
-    navswitch_init();
-    pacer_init(PACER_RATE);
-    gameDisplay_init();
-    transmit_init();
+    if (checkSequence(received, sequence, SEQ_SIZE + seq_add)) {
+        display_text("Matches ", 8);
+        *is_turn = 1;
+    } else {
+        display_text("Wrong ", 6);
+        *game_playing = 0;
+        //Game Over Function
+    }
+}
 
+void game_loop(int is_turn)
+{
+    int turns = 1;              // keeps track of turn switches
+    int seq_add = 0;
+    int game_playing = 1;
     char sequence[SEQ_SIZE];
     char received[SEQ_SIZE];
-    int is_turn = 0;
-    int turns = 0;              // keeps track of turn switches
-    int seq_add = 0;
-    while (1) {
-        title_msg();
-        set_player(&is_turn);
-
+    while (game_playing) {
         if (is_turn) {
             display_text("Your Turn ", 10);
             player_input(sequence, SEQ_SIZE + seq_add);
@@ -58,21 +61,29 @@ int main (void)
             receiveSequence(received, SEQ_SIZE + seq_add);
             display_sequence(received, SEQ_SIZE + seq_add);
             player_input(sequence, SEQ_SIZE + seq_add);
-            if (checkSequence(received, sequence, SEQ_SIZE + seq_add)) {
-                display_text("Matches ", 8);
-                is_turn = 1;
-                ++turns;
-            } else {
-                display_text("Wrong ", 6);
-                --turns;
-            }
+            receiving_check(received, sequence, &game_playing, &is_turn, seq_add);
+            ++turns;
         }
-
-        if (turns % 2 == 0) { // if player has transmitted and received
+        if (turns % 3 == 0) { // if player has transmitted and received
             seq_add += 2;
         }
+    }
+}
 
-        pacer_wait();
+int main (void)
+{
+    system_init();
+    navswitch_init();
+    pacer_init(PACER_RATE);
+    gameDisplay_init();
+    transmit_init();
+
+    int is_turn;
+
+    while (1) {
+        title_msg();
+        set_player(&is_turn);
+        game_loop(is_turn);
     }
 }
 
