@@ -2,7 +2,7 @@
  * Declares the functions of gameplay.c
  *
  * Authors: Raymond Tamse
- * Date: October 14 2019
+ * Date: October 15 2019
  */
 
 #ifndef GAMEPLAY_H
@@ -29,9 +29,22 @@ void begin_game(int is_host);
 void sequence_comms(char* host_seq, char* player_seq);
 */
 
-/*
+/**
+ * Takes two pointers char* which point to the host sequence and
+ * the player sequence.
+ * Compares the two sequences, and returns 1 if the sequence matches,
+ * otherwise returns 0;
+ *
+ * @param char* received, host's sequence to be compared
+ * @param char* input, player's sequence to be compared
+ */
+int checkSequence(char* received, char* input, int n);
+
+/**
  * Generates a random sequence of chars
  * corresponding to all five navswitch inputs.
+ *
+ * @param char* sequence, sequence to be updated with random symbols
  */
 void generate_sequence(char* sequence, int seq_length);
 
