@@ -19,7 +19,7 @@ all: game.out
 game.o: game.c ../../drivers/avr/system.h ../../drivers/navswitch.h game_display.h transmit.h gameplay.h ../../utils/pacer.h
 	$(CC) -c $(CFLAGS) $< -o $@
 
-gameplay.o: gameplay.c ../../drivers/avr/system.h ../../utils/pacer.h
+gameplay.o: gameplay.c ../../drivers/avr/system.h ../../utils/pacer.h game_display.h
 	$(CC) -c $(CFLAGS) $< -o $@
 
 navinput.o: navinput.c ../../drivers/avr/system.h ../../drivers/navswitch.h game_display.h ../../utils/pacer.h
@@ -31,7 +31,7 @@ system.o: ../../drivers/avr/system.c ../../drivers/avr/system.h
 game_display.o: game_display.c ../../drivers/avr/system.h ../../utils/font.h font5x7_1_arrows.h ../../utils/pacer.h ../../utils/tinygl.h
 	$(CC) -c $(CFLAGS) $< -o $@
 
-game_setup.o: game_setup.c ../../drivers/avr/system.h ../../drivers/navswitch.h game_display.h navinput.h 
+game_setup.o: game_setup.c ../../drivers/avr/system.h ../../drivers/navswitch.h game_display.h navinput.h
 	$(CC) -c $(CFLAGS) $< -o $@
 
 transmit.o: transmit.c ../../drivers/avr/ir_uart.h ../../drivers/avr/system.h
