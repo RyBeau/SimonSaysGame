@@ -38,7 +38,7 @@ void set_player(int* is_host)
 {
     int player_found = 0;
     char data[1];
-    char* instruction = " PUSH NAVSWITCH TO HOST ";
+    char* instruction = " HOLD NAVSWITCH TO HOST ";
     while(player_found == 0) {
         display_text(instruction, strlen(instruction));
         navswitch_update();
