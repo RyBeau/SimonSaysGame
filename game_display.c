@@ -88,7 +88,6 @@ void display_sequence(char* sequence, int n)
  **/
 void gameDisplay_init (void)
 {
-    system_init ();
     tinygl_init (PACER_RATE);
     tinygl_font_set (&font5x7_1_arrows);
     tinygl_text_speed_set(MESSAGE_RATE);
