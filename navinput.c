@@ -17,12 +17,14 @@
  * other half is for spaces.
  * @param char* input, player sequence to be updated with input
  */
-void player_input(char* input, int n)
+void player_input(char* input, int n, int is_turn)
 {
     int counter = 0;
-    char numEnter[3];
-    sprintf(numEnter, "%d ", n/2);
-    display_text(numEnter, 3);
+    if (is_turn) {
+		char numEnter[3];
+        sprintf(numEnter, "%d%d  ", n/2, n/2);
+        display_sequence(numEnter, 3);
+    }
     while (counter < n) {
         navswitch_update();
         if (navswitch_push_event_p (NAVSWITCH_NORTH)) {
