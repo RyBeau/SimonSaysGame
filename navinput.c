@@ -34,6 +34,7 @@ void player_input(char* input, int n)
 {
     int counter = 0;
     while (counter < n) {
+		navswitch_update();
         if (navswitch_push_event_p (NAVSWITCH_NORTH)) {
             input[counter] = '^';
             input[counter + 1] = ' ';
@@ -63,7 +64,6 @@ void player_input(char* input, int n)
             input[counter + 1] = ' ';
             counter += 2;   // dot
         }
-        navswitch_update();
         pacer_wait();
     }
     display_sequence(input, n); //dont want
