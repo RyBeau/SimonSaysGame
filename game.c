@@ -53,14 +53,14 @@ void game_loop(int is_turn)
     while (game_playing) {
         if (is_turn) {
             display_text("Your Turn ", 10);
-            player_input(sequence, SEQ_SIZE + seq_add);
+            player_input(sequence, SEQ_SIZE + seq_add, is_turn);
             transmitSequence(sequence, SEQ_SIZE + seq_add);
             is_turn = 0;
             ++turns;
         } else {
             receiveSequence(received, SEQ_SIZE + seq_add);
             display_sequence(received, SEQ_SIZE + seq_add);
-            player_input(sequence, SEQ_SIZE + seq_add);
+            player_input(sequence, SEQ_SIZE + seq_add, is_turn);
             receiving_check(received, sequence, &game_playing, &is_turn, seq_add);
             ++turns;
         }
