@@ -23,7 +23,7 @@ void title_msg();
  * Uses transmit.c for IR communication.
  * Returns an int that tells if the player is a host.
  */
-int set_player();
+void set_player(int* is_host);
 
 /*
  * Takes an integer 'win' to choose between 3 different messages
