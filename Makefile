@@ -31,6 +31,9 @@ system.o: ../../drivers/avr/system.c ../../drivers/avr/system.h
 game_display.o: game_display.c ../../drivers/avr/system.h ../../utils/font.h font5x7_1_arrows.h ../../utils/pacer.h ../../utils/tinygl.h
 	$(CC) -c $(CFLAGS) $< -o $@
 
+game_setup.o: game_setup.c ../../drivers/avr/system.h ../../drivers/navswitch.h game_display.h navinput.h 
+	$(CC) -c $(CFLAGS) $< -o $@
+
 transmit.o: transmit.c ../../drivers/avr/ir_uart.h ../../drivers/avr/system.h
 	$(CC) -c $(CFLAGS) $< -o $@
 
@@ -71,7 +74,7 @@ prescale.o: ../../drivers/avr/prescale.c ../../drivers/avr/prescale.h ../../driv
 	$(CC) -c $(CFLAGS) $< -o $@
 
 # Link: create ELF output file from object files.
-game.out: game.o system.o game_display.o transmit.o ir_uart.o font.o pacer.o tinygl.o timer.o pio.o ledmat.o display.o navswitch.o timer0.o usart1.o prescale.o navinput.o gameplay.o
+game.out: game.o game_setup.o system.o game_display.o transmit.o ir_uart.o font.o pacer.o tinygl.o timer.o pio.o ledmat.o display.o navswitch.o timer0.o usart1.o prescale.o navinput.o gameplay.o
 	$(CC) $(CFLAGS) $^ -o $@ -lm
 	$(SIZE) $@
 
