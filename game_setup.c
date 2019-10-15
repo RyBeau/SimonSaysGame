@@ -47,6 +47,7 @@ void set_player(int* is_host)
         if (navswitch_push_event_p (NAVSWITCH_PUSH)) {
             transmitSequence("!", 1);
             *is_host = 1;
+            player_found = 1;
         }
         // Receive
         if (ir_uart_read_ready_p ()) { 
