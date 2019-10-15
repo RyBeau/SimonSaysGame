@@ -38,7 +38,7 @@ int main (void)
         }
         if (navswitch_push_event_p(NAVSWITCH_SOUTH)) {
             receiveSequence(received, 10);
-            displaySequence(received, 10);
+            display_sequence(received, 10);
             player_input(sequence, 10);
             if (checkSequence(received, sequence, 10)) {
 				display_text("Matches ", 8);
