@@ -42,6 +42,7 @@ void set_player(int* is_host)
     char data[1];
     /* While '*' or '!' not received... */
     while(player_found == 0) {
+		//Put call here
 		navswitch_update();
         // Transmit
         if (navswitch_push_event_p (NAVSWITCH_PUSH)) {
