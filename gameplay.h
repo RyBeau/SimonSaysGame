@@ -30,17 +30,6 @@ void sequence_comms(char* host_seq, char* player_seq);
 */
 
 /**
- * Takes two pointers char* which point to the host sequence and
- * the player sequence.
- * Compares the two sequences, and returns 1 if the sequence matches,
- * otherwise returns 0;
- *
- * @param char* received, host's sequence to be compared
- * @param char* input, player's sequence to be compared
- */
-int checkSequence(char* received, char* input, int n);
-
-/**
  * Generates a random sequence of chars
  * corresponding to all five navswitch inputs.
  *
