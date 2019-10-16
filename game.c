@@ -5,12 +5,14 @@
 #include "navswitch.h"
 #include "navinput.h"
 #include <string.h>
+#include <stdlib.h>
 #include "game_setup.h"
 #include "gameplay.h"
 
 
 #define PACER_RATE 500
 #define SEQ_SIZE 10
+#define	GAMEOVER '!'
 
 
 /**
@@ -43,31 +45,60 @@ void receiving_check(char* received, char* sequence, int* game_playing, int* is_
     }
 }
 
+void receivingTurn(char* received, char* sequence, int* game_playing, int* is_turn,int seq_add)
+{
+    receiveSequence(received, SEQ_SIZE + seq_add);
+    if (received[0] == GAMEOVER) {
+        *game_playing = 0;
+        //Call you win
+    } else {
+        display_sequence(received, SEQ_SIZE + seq_add);
+        player_input(sequence, SEQ_SIZE + seq_add, is_turn);
+        receiving_check(received, sequence, game_playing, is_turn, seq_add);
+    }
+}
+
+void sendingTurn(char* sequence,int* is_turn, int seq_add)
+{
+    display_text("Your Turn ", 10);
+    player_input(sequence, SEQ_SIZE + seq_add, *is_turn);
+    transmitSequence(sequence, SEQ_SIZE + seq_add);
+    *is_turn = 0;
+}
+
+void reallocCharStars(char* sequence, char* received, int seq_add)
+{
+	realloc(sequence, SEQ_SIZE + seq_add);
+	realloc(received, SEQ_SIZE + seq_add);
+}
+
+void freeCharStars(char* sequence, char* received)
+{
+	free(sequence);
+	free(received);
+}
+
 void game_loop(int is_turn)
 {
     int turns = 1;              // keeps track of turn switches
     int seq_add = 0;
     int game_playing = 1;
-    char sequence[SEQ_SIZE];
-    char received[SEQ_SIZE];
+    char* sequence = malloc(SEQ_SIZE);
+    char* received = malloc(SEQ_SIZE);
     while (game_playing) {
         if (is_turn) {
-            display_text("Your Turn ", 10);
-            player_input(sequence, SEQ_SIZE + seq_add, is_turn);
-            transmitSequence(sequence, SEQ_SIZE + seq_add);
-            is_turn = 0;
+            sendingTurn(sequence, &is_turn, seq_add);
             ++turns;
         } else {
-            receiveSequence(received, SEQ_SIZE + seq_add);
-            display_sequence(received, SEQ_SIZE + seq_add);
-            player_input(sequence, SEQ_SIZE + seq_add, is_turn);
-            receiving_check(received, sequence, &game_playing, &is_turn, seq_add);
+            receivingTurn(received, sequence, &game_playing, &is_turn, seq_add);
             ++turns;
         }
         if (turns % 3 == 0) { // if player has transmitted and received
             seq_add += 2;
+            reallocCharStars(sequence, received, seq_add);
         }
     }
+    freeCharStars(sequence, received);
 }
 
 int main (void)
