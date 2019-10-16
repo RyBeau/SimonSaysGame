@@ -14,7 +14,7 @@
  * other half is for spaces.
  * @param char* input, player sequence to be updated with input
  */
-void player_input (char* input, int n);
+void player_input (char* input, int n, int is_turn);
 
  #endif
 
