@@ -35,6 +35,7 @@ void sequence_comms(char* host_seq, char* player_seq);
  *
  * @param char* sequence, sequence to be updated with random symbols
  */
+/**
 void generate_sequence(char* sequence, int seq_length);
-
+*/
 #endif
