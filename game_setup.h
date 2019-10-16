@@ -24,10 +24,22 @@ void title_msg();
  */
 void set_player(int* is_host);
 
-/*
+/**
+ * Called when the player makes the wrong sequence.
+ * Takes the char* player sequence with its size of int n,
+ * and replaces the first symbol with an '!', defined as GAMEOVER
+ * in game.c
+ * Sequence gets transmitted to the host for checking.
+ * @param char* sequence, player sequence to be updated
+ */
+void lose_signal(char* sequence, int n);
+
+/**
  * Takes an integer 'win' to choose between 3 different messages
  * depending on the result of the game.
+ * Uses display_text to display the result message.
+ * @param char* sequence, needed for lose scenario
  */
-// void game_over(int win);
+void game_over(char* sequence, int win);
 
 #endif
