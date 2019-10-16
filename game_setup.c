@@ -53,33 +53,47 @@ void set_player(int* is_host)
         if (ir_uart_read_ready_p ()) {
             receiveSequence(data, 1);    // receive '!'
             if (strncmp(data, "!", 1) == 0) {
-				*is_host = 0;
+                *is_host = 0;
                 player_found = 1;
             }
         }
     }
 }
 
-/*
+/**
+ * Called when the player makes the wrong sequence.
+ * Takes the char* player sequence with its size of int n,
+ * and replaces the first symbol with an '!', defined as GAMEOVER
+ * in game.c
+ * Sequence gets transmitted to the host for checking.
+ * @param char* sequence, player sequence to be updated
+ */
+void lose_signal(char* sequence, int n)
+{
+    *sequence = '!';
+    transmitSequence(sequence, n);
+}
+
+/**
  * Takes an integer 'win' to choose between 3 different messages
  * depending on the result of the game.
  * Uses display_text to display the result message.
+ * @param char* sequence, needed for lose scenario
  */
- /**
-void game_over(int win)
+void game_over(char* sequence, int win)
 {
     char* end_msg = NULL;
 
     switch (win) {
     case 0 :
-        end_msg = "You win! ";
+        end_msg = " Congratulations! You win! ";
         break;
     case 1 :
-        end_msg = "You lose! ";
+        lose_signal(sequence, strlen(sequence));
+        *sequence = '!';
+        transmitSequence(sequence, n);
+        end_msg = " Game over! You lose! ";
         break;
-    case 2 :
-        end_msg = "Game Over! ";           // host msg
-    }
     display_text(end_msg, strlen(end_msg);
 }
-*/
+
