@@ -20,7 +20,7 @@
 
 /* Simply prints "Simon Says" on the LED matrix.
  */
-void title_msg()
+void title_msg(void)
 {
     char* greeting = " SIMON SAYS ";
     display_text(greeting, strlen(greeting));
@@ -40,7 +40,6 @@ void set_player(int* is_host)
     char data[1];
     char* instruction = " HOLD TO HOST ";
     while(player_found == 0) {
-        display_text(instruction, strlen(instruction));
         navswitch_update();
 
         // Transmit
@@ -57,6 +56,7 @@ void set_player(int* is_host)
                 player_found = 1;
             }
         }
+        display_text(instruction, strlen(instruction));
     }
 }
 
