@@ -18,7 +18,8 @@
 
 
 
-/* Simply prints "Simon Says" on the LED matrix.
+/**
+ * Simply prints "Simon Says" on the LED matrix.
  */
 void title_msg(void)
 {
@@ -29,7 +30,7 @@ void title_msg(void)
 
 /**
  * Handles the matchmaking between two boards.
- * Takes an int* to determine who will start first (host).
+ * Takes an int* is_host to determine who will start first (host).
  * Proceeds to send and receive a signal (!) when player is found.
  *
  * @param int* is_host, int to be updated to determine host
@@ -42,15 +43,14 @@ void set_player(int* is_host)
     while(player_found == 0) {
         navswitch_update();
 
-        // Transmit
         if (navswitch_push_event_p (NAVSWITCH_PUSH)) {
             transmitSequence("!", 1);
             *is_host = 1;
             player_found = 1;
         }
-        // Receive
+
         if (ir_uart_read_ready_p ()) {
-            receiveSequence(data, 1);    // receive '!'
+            receiveSequence(data, 1);
             if (strncmp(data, "!", 1) == 0) {
                 *is_host = 0;
                 player_found = 1;
@@ -61,7 +61,7 @@ void set_player(int* is_host)
 }
 
 /**
- * Takes an integer 'win' to choose between 3 different messages
+ * Takes an integer 'win' to choose between 2 different messages
  * depending on the result of the game.
  * Uses display_text to display the result message.
  * @param char* sequence, needed for lose scenario
