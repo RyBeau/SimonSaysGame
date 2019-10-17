@@ -9,7 +9,7 @@
 
 
 #define PACER_RATE 500
-#define SEQ_SIZE 10
+#define SEQ_SIZE 30
 
 
 /**
@@ -53,6 +53,7 @@ void game_loop(int is_turn)
         if (is_turn) {
             display_text("Your Turn ", 10);
             player_input(sequence, 10, is_turn);
+            display_text(sequence, 10);
             transmitSequence(sequence, SEQ_SIZE + seq_add);
             is_turn = 0;
             ++turns;
@@ -66,6 +67,7 @@ void game_loop(int is_turn)
         if (turns % 3 == 0) { // if player has transmitted and received
             seq_add += 2;
         }
+        pacer_wait();
     }
 }
 
@@ -77,7 +79,7 @@ int main (void)
     gameDisplay_init();
     transmit_init();
 
-    int is_turn;
+    int is_turn = 0;
 
     while (1) {
         title_msg();
