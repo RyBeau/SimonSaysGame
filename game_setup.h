@@ -13,7 +13,7 @@
 /**
  * Simply prints "Simon Says" on the LED matrix.
  */
-void title_msg();
+void title_msg(void);
 
 /**
  * Handles the matchmaking between two boards.
