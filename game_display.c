@@ -4,7 +4,7 @@
  * @author Raymond Tamse
  * @date 9/10/2019
  * @brief Display on LED Matrix
- * @note This module contains functions for display game infomation on screen
+ * @note This module contains functions for displaying game infomation on screen
  * */
 #include "system.h"
 #include "pacer.h"
