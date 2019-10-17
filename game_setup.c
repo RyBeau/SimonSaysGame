@@ -21,21 +21,20 @@
 /**
  * Simply prints "Simon Says" on the LED matrix.
  */
-void title_msg(void)
+void setup_title_message(void)
 {
     char* greeting = " SIMON SAYS ";
     display_text(greeting, strlen(greeting));
 }
 
-
 /**
  * Handles the matchmaking between two boards.
- * Takes an int* is_host to determine who will start first (host).
+ * Takes an int* is_host_ptr to determine who will start first (host).
  * Proceeds to send and receive a signal (!) when player is found.
  *
- * @param int* is_host, int to be updated to determine host
+ * @param int* is_host_ptr, int to be updated to determine host
  */
-void set_player(int* is_host)
+void setup_set_player(int* is_host_ptr)
 {
     int player_found = 0;
     char data[1];
@@ -44,15 +43,15 @@ void set_player(int* is_host)
         navswitch_update();
 
         if (navswitch_push_event_p (NAVSWITCH_PUSH)) {
-            transmitSequence("!", 1);
-            *is_host = 1;
+            comm_transmit_sequence("!", 1);
+            *is_host_ptr = 1;
             player_found = 1;
         }
 
         if (ir_uart_read_ready_p ()) {
-            receiveSequence(data, 1);
+            comm_receive_sequence(data, 1);
             if (strncmp(data, "!", 1) == 0) {
-                *is_host = 0;
+                *is_host_ptr = 0;
                 player_found = 1;
             }
         }
@@ -60,27 +59,4 @@ void set_player(int* is_host)
     }
 }
 
-/**
- * Takes an integer 'win' to choose between 2 different messages
- * depending on the result of the game.
- * Uses display_text to display the result message.
- * @param char* sequence, needed for lose scenario
- */
-void game_over(char* sequence, int win)
-{
-    char* end_msg = NULL;
-
-    switch (win) {
-    case 0 :
-        sequence[0] = '!';
-        transmitSequence(sequence, strlen(sequence));
-        end_msg = " Game over! You lose! ";
-        display_text(end_msg, strlen(end_msg));
-        break;
-    case 1 :
-        end_msg = " Congratulations! You win! ";
-        display_text(end_msg, strlen(end_msg));
-        break;
-    }
-}
 
