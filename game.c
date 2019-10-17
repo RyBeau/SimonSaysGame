@@ -53,13 +53,23 @@ int checkSequence(char* received, char* input, int n)
  * */
 void receiving_check(char* received, char* sequence, int* game_playing, int* is_turn, int current_size)
 {
-    if (checkSequence(received, sequence, current_size)) {
+    int is_correct = checkSequence(received, sequence, current_size);
+    if (is_correct) {
         display_text("Matches ", 8);
         *is_turn = 1;
     } else {
         display_text("Wrong ", 6);
         *game_playing = 0;
-        //Game Over Function
+        game_over(sequence, is_correct);
+    }
+}
+
+int checkIfWon(char* received)
+{
+    if (GAMEOVER == received[0]) {
+        return 1;
+    } else {
+        return 0;
     }
 }
 
@@ -80,9 +90,13 @@ void receiving_check(char* received, char* sequence, int* game_playing, int* is_
 void receivingTurn(char* received, char* sequence, int* game_playing, int* is_turn,int current_size)
 {
     receiveSequence(received, current_size);
-    display_sequence(received, current_size);
-    player_input(sequence,  current_size, *is_turn);
-    receiving_check(received, sequence, game_playing, is_turn,current_size);
+    if (!checkIfWon(received)) {
+        display_sequence(received, current_size);
+        player_input(sequence,  current_size, *is_turn);
+        receiving_check(received, sequence, game_playing, is_turn,current_size);
+    } else {
+        game_over(sequence, 1);
+    }
 
 }
 
