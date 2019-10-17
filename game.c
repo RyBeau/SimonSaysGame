@@ -19,6 +19,7 @@
 #define PACER_RATE 500
 #define MAX_SIZE 30 //Maximum sequence size
 #define GAMEOVER '!' //Game over character
+#define CURRENT_SIZE_DIVIDER 2 //Divider to get true sequence size
 #define TRUE 1
 #define FALSE 0
 
@@ -27,19 +28,20 @@
  * depending on the result of the game.
  * Uses display_text to display the result message.
  * @param char* sequence, needed for lose scenario
+ * @param int win, TRUE or FALSE
  */
 void game_over(char* sequence, int win)
 {
     char* end_msg = NULL;
 
     switch (win) {
-    case 0 :
+    case FALSE :
         sequence[0] = '!';
         comm_transmit_sequence(sequence, strlen(sequence));
         end_msg = " Game over! You lose! ";
         display_text(end_msg, strlen(end_msg));
         break;
-    case 1 :
+    case TRUE :
         end_msg = " Congratulations! You win! ";
         display_text(end_msg, strlen(end_msg));
         break;
@@ -51,7 +53,6 @@ void game_over(char* sequence, int win)
  * the player sequence.
  * Compares the two sequences, and returns 1 if the sequence matches,
  * otherwise returns 0;
- *
  * @param char* received, host's sequence to be compared
  * @param char* input, player's sequence to be compared
  * @return TRUE or FALSE
@@ -146,7 +147,7 @@ static void game_receiving_turn(char* received, char* sequence, int* game_playin
 static void game_sending_turn(char* sequence,int* is_turn_ptr, int current_size)
 {
     display_text("Your Turn ", 10);
-    display_int(current_size);
+    display_int(current_size / CURRENT_SIZE_DIVIDER);
     player_input(sequence,  current_size);
     comm_transmit_sequence(sequence,  current_size);
     *is_turn_ptr = 0;
@@ -181,13 +182,9 @@ static void game_loop(int is_turn)
 }
 
 /**
- * This is the main loop for the game, here all sub-loops are called in
- * the correct order to allow for reqeated games without restarting the
- * UCFK. It first calls all the init functions of modules that will be
- * used throughtout the game. Next it defines is_turn which is an int that
- * holds a 0 or 1 to indicate true or false.
- * Finally it enters the infinite while loop where it plays the title message
- * then enters the setup loop, and finally enters the game loop.
+ * This is the main function for the game, here all the modules are intialised
+ * and the main loop begins and will repeat forever, calling sub-loops in the 
+ * order for continued gameplay.
  * */
 int main (void)
 {
