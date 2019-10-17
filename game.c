@@ -83,7 +83,7 @@ void receivingTurn(char* received, char* sequence, int* game_playing, int* is_tu
     receiveSequence(received, SEQ_SIZE + seq_add);
     display_sequence(received, SEQ_SIZE + seq_add);
     player_input(sequence, SEQ_SIZE + seq_add, *is_turn);
-    receiving_check(received, sequence, game_playing, *is_turn,seq_add);
+    receiving_check(received, sequence, game_playing, is_turn,seq_add);
 
 }
 
