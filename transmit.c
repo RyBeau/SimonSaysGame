@@ -6,6 +6,7 @@
  * */
 #include "system.h"
 #include "ir_uart.h"
+#include "game_display.h"
 
 /**
  * This transmits the sequece given in char* sequence.
