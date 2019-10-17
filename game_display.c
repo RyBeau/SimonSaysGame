@@ -28,13 +28,14 @@ static void display_matrix_clear(void)
 
 }
 
-/**Converts the wanted_hz to a number of loops of the PACER_RATE
- * to allow for different loop pacing.
- * @param wanted_hz the desired rate for the loop to run at.
- * @return Number of loops to get the wanted_hz*/
-static int display_get_hz(int wanted_hz)
+/**Converts the wanted_rate to a number of loops of the PACER_RATE
+ * to calculate the number of loops to display text at a given
+ * playback rate.
+ * @param wanted_rate the desired rate for the loop to run at.
+ * @return Number of loops to get the wanted_rate*/
+static int display_get_loops(int wanted_rate)
 {
-    return PACER_RATE / wanted_hz;
+    return PACER_RATE / wanted_rate;
 }
 
 /**The function is the loop for dislaying the text set using tinygl_text
@@ -43,7 +44,7 @@ static int display_get_hz(int wanted_hz)
  * @param n The number of letters in the sequence to display*/
 static void display_update_loop(int n)
 {
-    int loop_for = n * display_get_hz(PLAYBACK_RATE);
+    int loop_for = n * display_get_loops(PLAYBACK_RATE);
     int counter = 0;
     while(counter <= loop_for) {
         tinygl_update();
@@ -53,7 +54,7 @@ static void display_update_loop(int n)
     display_matrix_clear();
 }
 
-/**Sets the text to be display on the LED matrix using tinygl.
+/**
  * This function is for displaying information text for the game, this
  * type of text is dislplayed TEXT_MULTIPLIER times and in the TINYGL_TEXT_MODE_SCROLL
  * text mode.
@@ -95,7 +96,7 @@ void display_int(int int_to_display)
 	int length = 2;
 	int base = 10;
 	char char_of_int[length];
-	itoa(int_to_display / 2, char_of_int, base);
+	itoa(int_to_display, char_of_int, base);
 	display_sequence(char_of_int, length);
 }
 
