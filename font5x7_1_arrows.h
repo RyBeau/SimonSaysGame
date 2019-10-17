@@ -2,8 +2,8 @@
     @author  fontgen
     @date    09 Oct 2019
 
-    @defgroup font5x7_1_arrows  This is a 5x7 font with uppercase, lowercase, digits, and symbols.
- M.P. Hayes 2 Sep 2010
+    @defgroup This is a 5x7 font with uppercase, lowercase, digits, symbols, and arrows to be used in Simon Says Game. 
+    Ryan Beaumont, Raymond Tamse, 17/10/2019
 
 */
 
