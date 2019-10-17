@@ -52,7 +52,6 @@ void player_input(char* input, int n, int is_turn)
         }
         pacer_wait();
     }
-    display_sequence(input, n);
 }
 
 
