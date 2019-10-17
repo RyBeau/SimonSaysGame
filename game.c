@@ -52,7 +52,7 @@ int checkSequence(char* received, char* input, int n)
  * @param int* is_turn, pointer to the is_turn int from the game loop function
  * @param int seq_add, the addition character length from round progression
  * */
-void receiving_check(char* received, char* sequence, int* game_playing, int seq_add)
+void receiving_check(char* received, char* sequence, int* game_playing, int* is_turn, int seq_add)
 {
     if (checkSequence(received, sequence, SEQ_SIZE + seq_add)) {
         display_text("Matches ", 8);
@@ -80,11 +80,10 @@ void receiving_check(char* received, char* sequence, int* game_playing, int seq_
 
 void receivingTurn(char* received, char* sequence, int* game_playing, int* is_turn,int seq_add)
 {
-   receiveSequence(received, SEQ_SIZE + seq_add);
-   display_sequence(received, SEQ_SIZE + seq_add);
-   player_input(sequence, SEQ_SIZE + seq_add, *is_turn);
-   receiving_check(received, sequence, game_playing, seq_add);
-*is_turn = 1;
+    receiveSequence(received, SEQ_SIZE + seq_add);
+    display_sequence(received, SEQ_SIZE + seq_add);
+    player_input(sequence, SEQ_SIZE + seq_add, *is_turn);
+    receiving_check(received, sequence, game_playing, *is_turn,seq_add);
 
 }
 
