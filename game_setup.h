@@ -13,7 +13,7 @@
 /**
  * Simply prints "Simon Says" on the LED matrix.
  */
-void title_msg(void);
+void setup_title_message(void);
 
 /**
  * Handles the matchmaking between two boards.
@@ -22,15 +22,6 @@ void title_msg(void);
  *
  * @param int* is_host, int to be updated to determine host
  */
-void set_player(int* is_host);
-
-
-/**
- * Takes an integer 'win' to choose between 2 different messages
- * depending on the result of the game.
- * Uses display_text to display the result message.
- * @param char* sequence, needed for lose scenario
- */
-void game_over(char* sequence, int win);
+void setup_set_player(int* is_host);
 
 #endif
