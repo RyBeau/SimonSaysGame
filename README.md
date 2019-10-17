@@ -10,11 +10,11 @@ when the other player cannot successfully repeat the sequence that was set. Step
 <h3>Symbol Meanings</h3>
 <p>The board is to be oriented with the navswitch at the bottom</p>
 <ul>
-	<li>Up Arrow: Up
-	<li>Down Arrow: Down
-	<li>Left Arrow: Left
-	<li>Right Arrow: Right
-	<li>Dot: Push
+	<li>Up Arrow: Navswitch Up
+	<li>Down Arrow: Navswitch Down
+	<li>Left Arrow: Navswitch Left
+	<li>Right Arrow: Navswitch Right
+	<li>Dot: Navswitch Push
 </ul>
 
 <h3>How to play:</h3>
