@@ -6,8 +6,18 @@ This is a Simon Says Memory Game, players must set sequences using the navswitch
 With each successful round the number of directions to enter for a sequence increases until it hits the maximum of 15. A player wins
 when the other player cannot successfully repeat the sequence that was set. Step by step instructions are detailed below.
 </p>
-<h3>How to play:</h3>
 
+<h3>Symbol Meanings</h3>
+<p>The board is to be oriented with the navswitch at the bottom</p>
+<ul>
+	<li>Up Arrow: Up
+	<li>Down Arrow: Down
+	<li>Left Arrow: Left
+	<li>Right Arrow: Right
+	<li>Dot: Push
+</ul>
+
+<h3>How to play:</h3>
 <ol>
 	<li>After programming the UCFK a title screen will play
 	<li>When the 'Hold to Host' screen appears one player must hold the navswitch in the push position until 'Your turn' is displayed.
