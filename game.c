@@ -6,7 +6,6 @@
 #include "navinput.h"
 #include <string.h>
 #include "game_setup.h"
-#include "gameplay.h"
 
 
 #define PACER_RATE 500
@@ -48,19 +47,19 @@ void game_loop(int is_turn)
     int turns = 1;              // keeps track of turn switches
     int seq_add = 0;
     int game_playing = 1;
-    char sequence[SEQ_SIZE];
-    char received[SEQ_SIZE];
+    char sequence[10];
+    char received[10];
     while (game_playing) {
         if (is_turn) {
             display_text("Your Turn ", 10);
-            player_input(sequence, SEQ_SIZE + seq_add, is_turn);
+            player_input(sequence, 10, is_turn);
             transmitSequence(sequence, SEQ_SIZE + seq_add);
             is_turn = 0;
             ++turns;
         } else {
-            receiveSequence(received, SEQ_SIZE + seq_add);
-            display_sequence(received, SEQ_SIZE + seq_add);
-            player_input(sequence, SEQ_SIZE + seq_add, is_turn);
+            receiveSequence(received, 10);
+            display_sequence(received, 10);
+            player_input(sequence, 10, is_turn);
             receiving_check(received, sequence, &game_playing, &is_turn, seq_add);
             ++turns;
         }
