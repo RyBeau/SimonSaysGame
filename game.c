@@ -14,7 +14,6 @@
 #include "navswitch.h"
 #include "navinput.h"
 #include "game_setup.h"
-#include "gameplay.h"
 #include <string.h>
 #include <stdlib.h>
 
@@ -57,6 +56,7 @@ void receiving_check(char* received, char* sequence, int* game_playing, int seq_
 {
     if (checkSequence(received, sequence, SEQ_SIZE + seq_add)) {
         display_text("Matches ", 8);
+        *is_turn = 1;
     } else {
         display_text("Wrong ", 6);
         *game_playing = 0;
