@@ -8,17 +8,16 @@
  * */
 
 #include "system.h"
+#include "navswitch.h"
+#include "navinput.h"
 #include "game_display.h"
 #include "transmit.h"
 #include "pacer.h"
-#include "navswitch.h"
-#include "navinput.h"
 #include "game_setup.h"
 #include <string.h>
-#include <stdlib.h>
 
 #define PACER_RATE 500
-#define SEQ_SIZE 10
+#define MAX_SIZE 30
 #define	GAMEOVER '!'
 
 
@@ -50,11 +49,11 @@ int checkSequence(char* received, char* input, int n)
  * @param char* sequence, pointer to the sequence entered by the player
  * @param int* game_playing, pointer to game_playing int from the game_loop function
  * @param int* is_turn, pointer to the is_turn int from the game loop function
- * @param int seq_add, the addition character length from round progression
+ * @param int current_size, the addition character length from round progression
  * */
-void receiving_check(char* received, char* sequence, int* game_playing, int* is_turn, int seq_add)
+void receiving_check(char* received, char* sequence, int* game_playing, int* is_turn, int current_size)
 {
-    if (checkSequence(received, sequence, SEQ_SIZE + seq_add)) {
+    if (checkSequence(received, sequence, current_size)) {
         display_text("Matches ", 8);
         *is_turn = 1;
     } else {
@@ -75,15 +74,15 @@ void receiving_check(char* received, char* sequence, int* game_playing, int* is_
  * @param char* sequence, pointer to the sequence entered by the player
  * @param int* game_playing, pointer to game_playing int from the game_loop function
  * @param int* is_turn, pointer to the is_turn int from the game loop function
- * @param int seq_add, the addition character length from round progression
+ * @param int current_size, the addition character length from round progression
  * */
 
-void receivingTurn(char* received, char* sequence, int* game_playing, int* is_turn,int seq_add)
+void receivingTurn(char* received, char* sequence, int* game_playing, int* is_turn,int current_size)
 {
-    receiveSequence(received, SEQ_SIZE + seq_add);
-    display_sequence(received, SEQ_SIZE + seq_add);
-    player_input(sequence, SEQ_SIZE + seq_add, *is_turn);
-    receiving_check(received, sequence, game_playing, is_turn,seq_add);
+    receiveSequence(received, current_size);
+    display_sequence(received, current_size);
+    player_input(sequence,  current_size, *is_turn);
+    receiving_check(received, sequence, game_playing, is_turn,current_size);
 
 }
 
@@ -95,40 +94,16 @@ void receivingTurn(char* received, char* sequence, int* game_playing, int* is_tu
  * to 0.
  * @param char* sequence, pointer to the sequence entered by the player
  * @param int* is_turn, pointer to the is_turn int from the game loop function
- * @param int seq_add, the addition character length from round progression
+ * @param int current_size, the addition character length from round progression
  * */
-void sendingTurn(char* sequence,int* is_turn, int seq_add)
+void sendingTurn(char* sequence,int* is_turn, int current_size)
 {
     display_text("Your Turn ", 10);
-    player_input(sequence, SEQ_SIZE + seq_add, *is_turn);
-    transmitSequence(sequence, SEQ_SIZE + seq_add);
+    player_input(sequence,  current_size, *is_turn);
+    transmitSequence(sequence,  current_size);
     *is_turn = 0;
 }
 
-/**
- * This function uses realloc to dynamically increase the size of the
- * char* for the sequences to be repeated by and entered by the player
- * @param char* sequence, pointer to the sequence entered by the player
- * @param char* received, pointer to the sequence received from the other player
- * @param int seq_add, the addition character length from round progression
- * */
-void reallocCharStars(char* sequence, char* received, int seq_add)
-{
-    realloc(sequence, SEQ_SIZE + seq_add);
-    realloc(received, SEQ_SIZE + seq_add);
-}
-
-/**
- * This function frees the allocated memory given to the char* sequence
- * and received.
- * @param char* sequence, pointer to the sequence entered by the player
- * @param char* received, pointer to the sequence received from the other player
- * */
-void freeCharStars(char* sequence, char* received)
-{
-    free(sequence);
-    free(received);
-}
 
 /**
  * This is the loop for the gameplay aspect. It intialises all
@@ -138,25 +113,23 @@ void freeCharStars(char* sequence, char* received)
 void game_loop(int is_turn)
 {
     int turns = 1;              // keeps track of turn switches
-    int seq_add = 0;
+    int current_size = 10;
     int game_playing = 1;
-    char sequence[SEQ_SIZE];
-    char received[SEQ_SIZE];
+    char sequence[MAX_SIZE];
+    char received[MAX_SIZE];
     while (game_playing) {
         if (is_turn) {
-            sendingTurn(sequence, &is_turn, seq_add);
+            sendingTurn(sequence, &is_turn, current_size);
             ++turns;
         } else {
-            receivingTurn(received, sequence, &game_playing, &is_turn, seq_add);
+            receivingTurn(received, sequence, &game_playing, &is_turn, current_size);
             ++turns;
         }
-        if (turns % 3 == 0) { // if player has transmitted and received
-            seq_add += 2;
-            reallocCharStars(sequence, received, seq_add);
+        if (turns % 3 == 0 && current_size < 30) { // if player has transmitted and received
+            current_size += 2;
         }
         pacer_wait();
     }
-    freeCharStars(sequence, received);
 }
 
 /**
