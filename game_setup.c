@@ -91,9 +91,10 @@ void game_over(char* sequence, int win)
     case 1 :
         lose_signal(sequence, strlen(sequence));
         *sequence = '!';
-        transmitSequence(sequence, n);
+        transmitSequence(sequence, strlen(sequence));
         end_msg = " Game over! You lose! ";
         break;
-    display_text(end_msg, strlen(end_msg);
+        display_text(end_msg, strlen(end_msg));
+    }
 }
 
