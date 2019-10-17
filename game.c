@@ -92,10 +92,11 @@ void receivingTurn(char* received, char* sequence, int* game_playing, int* is_tu
     receiveSequence(received, current_size);
     if (!checkIfWon(received)) {
         display_sequence(received, current_size);
-        player_input(sequence,  current_size, *is_turn);
+        player_input(sequence, current_size);
         receiving_check(received, sequence, game_playing, is_turn,current_size);
     } else {
         game_over(sequence, 1);
+        *game_playing = 0;
     }
 
 }
@@ -113,7 +114,7 @@ void receivingTurn(char* received, char* sequence, int* game_playing, int* is_tu
 void sendingTurn(char* sequence,int* is_turn, int current_size)
 {
     display_text("Your Turn ", 10);
-    player_input(sequence,  current_size, *is_turn);
+    player_input(sequence,  current_size);
     transmitSequence(sequence,  current_size);
     *is_turn = 0;
 }
