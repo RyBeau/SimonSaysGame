@@ -1,6 +1,7 @@
-Commenting
-ReadMe instructions
+<h1>Simon Says Memory Game</h1>
 
-game_setup
-navinput
+<h2>How to play:</h2>
 
+<ol>
+	<li>Test item
+</ol>
