@@ -6,7 +6,6 @@
  * */
 #include "system.h"
 #include "ir_uart.h"
-#include "game_display.h"
 
 /**
  * This transmits the sequece given in char* sequence.
@@ -43,7 +42,7 @@ void receiveSequence(char* received, int n)
  * Intialises other modules or variables needed for the
  * transmit module.
  **/
-void transmit_init(void)
+void communication_init(void)
 {
     ir_uart_init();
 }

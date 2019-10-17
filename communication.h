@@ -1,6 +1,6 @@
 
-#ifndef TRANSMIT_H
-#define TRANSMIT_H
+#ifndef COMMUNICATION_H
+#define COMMUNICATION_H
 
 #include "system.h"
 
@@ -21,6 +21,6 @@ void receiveSequence(char* received, int n);
  * Intialises other modules or variables needed for the 
  * transmit module.
  **/
-void transmit_init(void);
+void communication_init(void);
 
 #endif
