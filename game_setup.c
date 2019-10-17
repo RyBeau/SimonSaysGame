@@ -86,15 +86,16 @@ void game_over(char* sequence, int win)
 
     switch (win) {
     case 0 :
-        end_msg = " Congratulations! You win! ";
-        break;
-    case 1 :
-        lose_signal(sequence, strlen(sequence));
-        *sequence = '!';
+        //lose_signal(sequence, strlen(sequence));
+        sequence[0] = '!';
         transmitSequence(sequence, strlen(sequence));
         end_msg = " Game over! You lose! ";
-        break;
         display_text(end_msg, strlen(end_msg));
+        break;
+    case 1 :
+        end_msg = " Congratulations! You win! ";
+        display_text(end_msg, strlen(end_msg));
+        break;
     }
 }
 
