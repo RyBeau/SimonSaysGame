@@ -4,7 +4,7 @@
  * @author Raymond Tamse
  * @date 9/10/2019
  * @brief Header file for game_display.c
- * @note This module contains functions for display game infomation on screen
+ * @note This module definitions of functions for displaying game infomation on screen
  * */
 #ifndef GAME_DISPLAY_H
 #define GAME_DISPLAY_H
