@@ -17,7 +17,7 @@ void title_msg(void);
 
 /**
  * Handles the matchmaking between two boards.
- * Takes an int* to determine who will start first (host).
+ * Takes an int* is_host to determine who will start first (host).
  * Proceeds to send and receive a signal (!) when player is found.
  *
  * @param int* is_host, int to be updated to determine host
@@ -26,7 +26,7 @@ void set_player(int* is_host);
 
 
 /**
- * Takes an integer 'win' to choose between 3 different messages
+ * Takes an integer 'win' to choose between 2 different messages
  * depending on the result of the game.
  * Uses display_text to display the result message.
  * @param char* sequence, needed for lose scenario
