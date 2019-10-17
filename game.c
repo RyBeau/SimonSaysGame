@@ -18,7 +18,7 @@
 
 #define PACER_RATE 500
 #define MAX_SIZE 30
-#define	GAMEOVER '!'
+#define GAMEOVER '!'
 
 
 /**
@@ -112,7 +112,7 @@ void sendingTurn(char* sequence,int* is_turn, int current_size)
  * */
 void game_loop(int is_turn)
 {
-    int turns = 1;              // keeps track of turn switches
+    int turns = 0;              // keeps track of turn switches
     int current_size = 10;
     int game_playing = 1;
     char sequence[MAX_SIZE];
@@ -125,7 +125,7 @@ void game_loop(int is_turn)
             receivingTurn(received, sequence, &game_playing, &is_turn, current_size);
             ++turns;
         }
-        if (turns % 3 == 0 && current_size < 30) { // if player has transmitted and received
+        if (turns % 2 == 0 && current_size < 30 && turns > 0) { // if player has transmitted and received
             current_size += 2;
         }
         pacer_wait();
