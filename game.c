@@ -11,7 +11,7 @@
 #include "navswitch.h"
 #include "navinput.h"
 #include "game_display.h"
-#include "transmit.h"
+#include "communication.h"
 #include "pacer.h"
 #include "game_setup.h"
 #include <string.h>
@@ -30,7 +30,7 @@
  * @param char* received, host's sequence to be compared
  * @param char* input, player's sequence to be compared
  */
-int checkSequence(char* received, char* input, int n)
+static int checkSequence(char* received, char* input, int n)
 {
     if (strncmp(received, input, n) == 0) {
         return(1);
@@ -51,7 +51,7 @@ int checkSequence(char* received, char* input, int n)
  * @param int* is_turn, pointer to the is_turn int from the game loop function
  * @param int current_size, the addition character length from round progression
  * */
-void receiving_check(char* received, char* sequence, int* game_playing, int* is_turn, int current_size)
+static void receiving_check(char* received, char* sequence, int* game_playing, int* is_turn, int current_size)
 {
     int is_correct = checkSequence(received, sequence, current_size);
     if (is_correct) {
@@ -64,7 +64,7 @@ void receiving_check(char* received, char* sequence, int* game_playing, int* is_
     }
 }
 
-int checkIfWon(char* received)
+static int checkIfWon(char* received)
 {
     if (GAMEOVER == received[0]) {
         return 1;
@@ -87,7 +87,7 @@ int checkIfWon(char* received)
  * @param int current_size, the addition character length from round progression
  * */
 
-void receivingTurn(char* received, char* sequence, int* game_playing, int* is_turn,int current_size)
+static void receivingTurn(char* received, char* sequence, int* game_playing, int* is_turn,int current_size)
 {
     receiveSequence(received, current_size);
     if (!checkIfWon(received)) {
@@ -111,7 +111,7 @@ void receivingTurn(char* received, char* sequence, int* game_playing, int* is_tu
  * @param int* is_turn, pointer to the is_turn int from the game loop function
  * @param int current_size, the addition character length from round progression
  * */
-void sendingTurn(char* sequence,int* is_turn, int current_size)
+static void sendingTurn(char* sequence,int* is_turn, int current_size)
 {
     display_text("Your Turn ", 10);
     player_input(sequence,  current_size);
@@ -125,7 +125,7 @@ void sendingTurn(char* sequence,int* is_turn, int current_size)
  * variables that are needed only during a match of the game.
  * @param int is_turn, indicates whether its this players turn to set a sequence and transmit
  * */
-void game_loop(int is_turn)
+static void game_loop(int is_turn)
 {
     int turns = 0;              // keeps track of turn switches
     int current_size = 10;
@@ -162,7 +162,7 @@ int main (void)
     navswitch_init();
     pacer_init(PACER_RATE);
     gameDisplay_init();
-    transmit_init();
+    communication_init();
 
     int is_turn;
 
