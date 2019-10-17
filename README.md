@@ -21,6 +21,7 @@ when the other player cannot successfully repeat the sequence that was set. Step
 <ol>
 	<li>After programming the UCFK a title screen will play
 	<li>When the 'Hold to Host' screen appears one player must hold the navswitch in the push position until 'Your turn' is displayed.
+	<li>The other players display will go blank once it is synced.
 	<li>Next a number will flash on the screen. This is the number of directions to press on the navswitch to set your sequence.
 	<li>The sequence you set will then flash on the other players screen.
 	<li>The other player must then repeat the sequence that was shown on screen.
