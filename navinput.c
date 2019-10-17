@@ -9,7 +9,6 @@
 #include "navswitch.h"
 #include "pacer.h"
 #include "game_display.h"
-#include <stdio.h>
 
 /**
  * Takes a char* input that gets updated depending on the player's
@@ -19,12 +18,7 @@
  */
 void player_input(char* input, int n, int is_turn)
 {
-    int counter = 0;
-    if (is_turn) {
-		char numEnter[3];
-        sprintf(numEnter, "%d%d  ", n/2, n/2);
-        display_sequence(numEnter, 3);
-    }
+    int counter = 0;	
     while (counter < n) {
         navswitch_update();
         if (navswitch_push_event_p (NAVSWITCH_NORTH)) {
@@ -58,6 +52,7 @@ void player_input(char* input, int n, int is_turn)
         }
         pacer_wait();
     }
+    display_sequence(input, n);
 }
 
 
