@@ -12,7 +12,7 @@
 #include "navswitch.h"
 #include "navinput.h"
 #include "game_display.h"
-#include "transmit.h"
+#include "communication.h"
 #include "ir_uart.h"
 #include <string.h>
 
@@ -61,20 +61,6 @@ void set_player(int* is_host)
 }
 
 /**
- * Called when the player makes the wrong sequence.
- * Takes the char* player sequence with its size of int n,
- * and replaces the first symbol with an '!', defined as GAMEOVER
- * in game.c
- * Sequence gets transmitted to the host for checking.
- * @param char* sequence, player sequence to be updated
- */
-void lose_signal(char* sequence, int n)
-{
-    *sequence = '!';
-    transmitSequence(sequence, n);
-}
-
-/**
  * Takes an integer 'win' to choose between 3 different messages
  * depending on the result of the game.
  * Uses display_text to display the result message.
@@ -86,7 +72,6 @@ void game_over(char* sequence, int win)
 
     switch (win) {
     case 0 :
-        //lose_signal(sequence, strlen(sequence));
         sequence[0] = '!';
         transmitSequence(sequence, strlen(sequence));
         end_msg = " Game over! You lose! ";
