@@ -88,16 +88,16 @@ void display_sequence(char* sequence, int n)
 /**
  * Displays a given integer on the LED Matrix by converting using itoa()
  * it to a char* that can be sent to display_sequence
- * 
+ *
  * @param int int_to_display, the integer to be displayed
  * */
 void display_int(int int_to_display)
 {
-	int length = 2;
-	int base = 10;
-	char char_of_int[length];
-	itoa(int_to_display, char_of_int, base);
-	display_sequence(char_of_int, length);
+    int length = 2;
+    int base = 10;
+    char char_of_int[length];
+    itoa(int_to_display, char_of_int, base);
+    display_sequence(char_of_int, length);
 }
 
 /**

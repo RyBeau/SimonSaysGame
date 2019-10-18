@@ -94,7 +94,7 @@ static void game_receiving_check(char* received, char* sequence, int* game_playi
 /**
  * This function checks to see if the first character of the received sequence
  * matches the defined GAMEOVER character.
- * @param char* received, the received sequence from the other player 
+ * @param char* received, the received sequence from the other player
  * @return TRUE or FALSE
  * */
 static int game_check_if_won(char* received)
@@ -183,7 +183,7 @@ static void game_loop(int is_turn)
 
 /**
  * This is the main function for the game, here all the modules are intialised
- * and the main loop begins and will repeat forever, calling sub-loops in the 
+ * and the main loop begins and will repeat forever, calling sub-loops in the
  * order for continued gameplay.
  * */
 int main (void)
