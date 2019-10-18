@@ -40,13 +40,8 @@ void setup_set_player(int* is_host_ptr)
     char data[1];
     char* instruction = " HOLD TO HOST ";
     while(player_found == 0) {
+        display_text(instruction, strlen(instruction));
         navswitch_update();
-
-        if (navswitch_push_event_p (NAVSWITCH_PUSH)) {
-            comm_transmit_sequence("!", 1);
-            *is_host_ptr = 1;
-            player_found = 1;
-        }
 
         if (ir_uart_read_ready_p ()) {
             comm_receive_sequence(data, 1);
@@ -55,7 +50,11 @@ void setup_set_player(int* is_host_ptr)
                 player_found = 1;
             }
         }
-        display_text(instruction, strlen(instruction));
+        if (navswitch_push_event_p (NAVSWITCH_PUSH)) {
+            comm_transmit_sequence("!", 1);
+            *is_host_ptr = 1;
+            player_found = 1;
+        }
     }
 }
 
