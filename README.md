@@ -1,4 +1,4 @@
-<h1>Simon Says Memory Game</h1>
+<h1>Simon Says Memory Game for the UCFK</h1>
 
 <h3>General Description</h3>
 <p>
@@ -29,3 +29,8 @@ when the other player cannot successfully repeat the sequence that was set. Step
 	If the other player fails to correctly enter the sequence then the game is over and you have won. Both boards will return to the title
 	screen.
 </ol>
+
+#UCFK
+<img src="https://lh3.googleusercontent.com/proxy/JpTdH69c7F8M07kifEvdYVWcr3qbzqqc4H4iqQdDUHcZSMUV_DtgzUWmQS84fDsWsXFLvQJ52yKsALYUBTFZBt9cjDqNPOj2223F9xXoNyBZ48q7xgfNkA">
+
+Imported from University Gitlab server
