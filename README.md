@@ -31,6 +31,6 @@ when the other player cannot successfully repeat the sequence that was set. Step
 </ol>
 
 <h3>UCFK</h3>
-<img src="https://lh3.googleusercontent.com/proxy/JpTdH69c7F8M07kifEvdYVWcr3qbzqqc4H4iqQdDUHcZSMUV_DtgzUWmQS84fDsWsXFLvQJ52yKsALYUBTFZBt9cjDqNPOj2223F9xXoNyBZ48q7xgfNkA">
+<img src="https://joshmcculloch.nz/images/Collage.jpg">
 
 Imported from University Gitlab server
